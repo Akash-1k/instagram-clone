@@ -1,17 +1,22 @@
-import { View, Text , StyleSheet, Image, Pressable} from 'react-native'
+import { View, Text , StyleSheet, Image, ScrollView, Pressable, SafeAreaView, Platform} from 'react-native'
 import React from 'react'
 import SignupForm from '../components/SignupForm';
+import Styles from '../styles/Styles';
 
-export default function SignupScreen() {
-  return (
-    <View style={styles.container}>
-      <View style={styles.logoContainer}>
-        <Image
-          source={require("../assets/instagramLogo.png")}
-        />
-        <Text style={styles.title}>Sign up to see photos and videos from your friends.</Text>
+export default function SignupScreen({ navigation }) {
+  return (  
+  <SafeAreaView style={Styles.androidSafeArea}>
+    <ScrollView showsVerticalScrollIndicator={false}>  
+      <View style={styles.container}>
+        <View style={styles.logoContainer}>
+          <Image 
+            style={{ height: 50, width: 150, resizeMode: 'contain'}}
+            source={require('../assets/instagramLogo.png')}
+          />
+        </View>  
+        <Text style={styles.title}>Sign Up to see photos and videos from your friends.</Text>
         <Pressable
-          style={[styles.button,{flexDirection: 'row', width: '100%', justifyContent: 'center',}]}
+          style={styles.button}
         >
           <Image
             style={{width: 20, height: 20, marginRight: 10}}
@@ -27,39 +32,50 @@ export default function SignupScreen() {
             </View>
             <View style={{flex: 1, height: 1, backgroundColor: '#bab6b6'}} />
         </View>
-      </View>  
-      <SignupForm/>
-    </View>
+        <SignupForm navigation={navigation}/>
+      </View>
+    </ScrollView>
+  </SafeAreaView>
   )
 }
 
 const styles= StyleSheet.create({
   container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      paddingTop: 50,
-      paddingHorizontal: 12,  
-      marginTop: 35,
-      
-  },
-  title: {
-    fontSize: 17,
-    color: '#8e8e8e',
-
+      // flex: 1,
+      marginTop: '3%',
+      marginHorizontal: '12%', 
+      justifyContent: 'center',
+      alignItems: 'center',   
   },
   logoContainer: {
-      alignItems: 'center',
-      marginTop: 60,
+    alignItems: 'center',
+    // flex: 1,
+    // height: 300,
+    // width: 250,
+    // marginTop: '10%',
+    // backgroundColor: 'red',
+
+  },
+  title: {
+    marginTop: '5%',
+    fontSize: 18,
+    color: '#8e8e8e',
+    textAlign: 'center',
   },
   button: {
+    marginTop: '5%',
     backgroundColor: '#0096F6',
+    paddingVertical: '2%',
+    paddingHorizontal: '20%',
     alignItems: 'center',
-    justifyContent: 'center',
     minHeight: 42, 
-    borderRadius: 4,
+    borderRadius: 4, 
+    flexDirection: 'row', 
+    width: '100%',
   },
   buttonText: {
     color: '#fff',
-    fontSize: 19,
+    // fontSize: 19,
+    fontSize: Platform.OS === "web" ? 16 : 19,
   },
 });
